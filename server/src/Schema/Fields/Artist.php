@@ -2,17 +2,18 @@
 
 namespace Server\Schema\Fields;
 
-use Server\Database\Entities\Tracks;
+use Server\Database\Entities\Artists;
 use Server\Schema\TypeManager;
 use Server\Schema\AppContext;
 use Server\Database\Manager;
+use Server\Helpers\ClassHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
- * Class MusicUsageArea
- * @package CM\Schema\Fields
+ * Class Artist
+ * @package Server\Schema\Fields
  */
-class Track implements Field
+class Artist implements Field
 {
     /**
      * @return array
@@ -21,7 +22,7 @@ class Track implements Field
     public static function getField(): array
     {
         return [
-            'type' => TypeManager::get('track'),
+            'type' => TypeManager::get('artist'),
             'args' => [
                 'id' => [
                     'type' => TypeManager::ID(),
@@ -40,25 +41,23 @@ class Track implements Field
      * @param AppContext $appContext
      * @param ResolveInfo $resolveInfo
      * @return array|mixed|null
+     * @throws \ReflectionException
      */
     public static function resolve($value, $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        if(!empty($value) && array_key_exists('track', $value)) {
-            $track = $value['track'];
+        if(!empty($value) && array_key_exists('artist', $value)) {
+            $artist = $value['artist'];
         } else {
-            $track = self::getData($args);
+            $artist = self::getData($args);
         }
 
-        if(!$track instanceof Tracks) {
+        if(!$artist instanceof Artists) {
             return null;
         }
 
         return [
-            'id' => $track->getId(),
-            'name' => $track->getName(),
-            'composer' => $track->getComposer(),
-            'milliseconds' => $track->getMilliseconds(),
-            'price' => $track->getPrice()
+            'id' => ClassHelper::getPropertyValue($artist, 'id'),
+            'name' => ClassHelper::getPropertyValue($artist, 'name'),
         ];
     }
 
@@ -73,6 +72,6 @@ class Track implements Field
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = Manager::getInstance()->getEm();
 
-        return $em->getRepository(Tracks::class)->find($id);
+        return $em->getRepository(Artists::class)->find($id);
     }
 }

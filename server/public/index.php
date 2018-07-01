@@ -10,6 +10,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Server\Database\Manager;
 use Server\Request;
 use Server\Helpers\ErrorHelper;
+use Server\Schema\Query\FilterCollection;
 
 $paths = array(realpath(__DIR__ . '/../src/Database/Entities'));
 
@@ -29,6 +30,7 @@ $em = EntityManager::create($connectionParams, $config);
 
 $manager = Manager::getInstance();
 $manager->setEm($em);
+$manager->setFilterCollection(new FilterCollection());
 
 try {
     Request::serve();

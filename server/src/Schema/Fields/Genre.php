@@ -2,17 +2,18 @@
 
 namespace Server\Schema\Fields;
 
-use Server\Database\Entities\Tracks;
+use Server\Database\Entities\Genres;
 use Server\Schema\TypeManager;
 use Server\Schema\AppContext;
 use Server\Database\Manager;
+use Server\Helpers\ClassHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Class MusicUsageArea
  * @package CM\Schema\Fields
  */
-class Track implements Field
+class Genre implements Field
 {
     /**
      * @return array
@@ -21,7 +22,7 @@ class Track implements Field
     public static function getField(): array
     {
         return [
-            'type' => TypeManager::get('track'),
+            'type' => TypeManager::get('genre'),
             'args' => [
                 'id' => [
                     'type' => TypeManager::ID(),
@@ -40,25 +41,23 @@ class Track implements Field
      * @param AppContext $appContext
      * @param ResolveInfo $resolveInfo
      * @return array|mixed|null
+     * @throws \ReflectionException
      */
     public static function resolve($value, $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        if(!empty($value) && array_key_exists('track', $value)) {
-            $track = $value['track'];
+        if(!empty($value) && array_key_exists('genre', $value)) {
+            $genre = $value['genre'];
         } else {
-            $track = self::getData($args);
+            $genre = self::getData($args);
         }
 
-        if(!$track instanceof Tracks) {
+        if(!$genre instanceof Genres) {
             return null;
         }
 
         return [
-            'id' => $track->getId(),
-            'name' => $track->getName(),
-            'composer' => $track->getComposer(),
-            'milliseconds' => $track->getMilliseconds(),
-            'price' => $track->getPrice()
+            'id' => ClassHelper::getPropertyValue($genre, 'id'),
+            'name' => ClassHelper::getPropertyValue($genre, 'name'),
         ];
     }
 
@@ -73,6 +72,6 @@ class Track implements Field
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = Manager::getInstance()->getEm();
 
-        return $em->getRepository(Tracks::class)->find($id);
+        return $em->getRepository(Genres::class)->find($id);
     }
 }

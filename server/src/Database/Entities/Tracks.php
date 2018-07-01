@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="Server\Database\Repositories\TracksRepository")
+ * @ORM\Entity
  * @ORM\Table(name="tracks")
  */
 class Tracks
@@ -24,24 +24,6 @@ class Tracks
     protected $name;
 
     /**
-     * @ORM\OneToOne(targetEntity="Albums")
-     * @ORM\JoinColumn(name="AlbumId", referencedColumnName="AlbumId")
-     */
-    protected $albums;
-
-    /**
-     * @ORM\OneToOne(targetEntity="MediaTypes")
-     * @ORM\JoinColumn(name="MediaTypeId", referencedColumnName="MediaTypeId")
-     */
-    protected $mediaTypes;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Genres")
-     * @ORM\JoinColumn(name="GenreId", referencedColumnName="GenreId")
-     */
-    protected $genres;
-
-    /**
      * @ORM\Column(name="Composer", type="string", length=220)
      */
     protected $composer;
@@ -55,16 +37,6 @@ class Tracks
      * @ORM\Column(name="UnitPrice", type="decimal", precision=10, scale=2)
      */
     protected $price;
-
-    /**
-     * Many Users have Many Groups.
-     * @ORM\ManyToMany(targetEntity="Playlists")
-     * @ORM\JoinTable(name="playlist_track",
-     *      joinColumns={@ORM\JoinColumn(name="TrackId", referencedColumnName="TrackId")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="PlaylistId", referencedColumnName="PlaylistId")}
-     *      )
-     */
-    protected $playlists;
 
     /**
      * Playlists constructor.

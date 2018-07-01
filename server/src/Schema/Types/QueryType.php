@@ -3,11 +3,16 @@
 namespace Server\Schema\Types;
 
 use Server\Schema\Fields\Track;
+use Server\Schema\Fields\Genre;
+use Server\Schema\Fields\MediaType;
+use Server\Schema\Fields\Album;
+use Server\Schema\Fields\Albums;
+use Server\Schema\Fields\Artist;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
  * Class QueryType
- * @package CM\Schema\Type
+ * @package Server\Schema\Types
  */
 class QueryType extends ObjectType
 {
@@ -21,6 +26,11 @@ class QueryType extends ObjectType
             'name' => 'Query',
             'fields' => [
                 'track' => Track::getField(),
+                'genre' => Genre::getField(),
+                'mediaType' => MediaType::getField(),
+                'album' => Album::getField(),
+                'albums' => Albums::getField(),
+                'artist' => Artist::getField(),
             ]
         ];
 

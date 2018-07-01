@@ -5,10 +5,6 @@ namespace Server\Database\Entities;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
- * @ORM\Table(name="customers")
- */
 class Customers
 {
     /**

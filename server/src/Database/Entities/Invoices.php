@@ -4,10 +4,6 @@ namespace Server\Database\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
- * @ORM\Table(name="invoices")
- */
 class Invoices
 {
     /**

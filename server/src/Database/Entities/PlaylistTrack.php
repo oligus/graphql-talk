@@ -5,10 +5,7 @@ namespace Server\Database\Entities;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * @ORM\Entity(repositoryClass="Server\Database\Repositories\PlaylistTrackRepository")
- * @ORM\Table(name="playlist_track")
- */
+
 class PlaylistTrack
 {
     /**
@@ -22,7 +19,7 @@ class PlaylistTrack
      * @ORM\ManyToMany(targetEntity="Tracks")
      * @ORM\JoinTable(name="tracks",
      *      joinColumns={@ORM\JoinColumn(name="TrackId", referencedColumnName="tracks")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tracks", referencedColumnName="moo")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tracks", referencedColumnName="TrackId")}
      *      )
      */
     protected $tracks;

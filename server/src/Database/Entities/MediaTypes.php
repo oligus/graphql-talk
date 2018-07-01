@@ -5,7 +5,7 @@ namespace Server\Database\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Server\Database\Repositories\PlaylistsRepository")
+ * @ORM\Entity
  * @ORM\Table(name="media_types")
  */
 class MediaTypes

@@ -2,8 +2,13 @@
 
 namespace Server\Database;
 
+use Server\Schema\Query\FilterCollection;
 use Doctrine\ORM\EntityManager;
 
+/**
+ * Class Manager
+ * @package Server\Database
+ */
 class Manager
 {
     /**
@@ -15,6 +20,11 @@ class Manager
      * @var EntityManager $em
      */
     private $em;
+
+    /**
+     * @var FilterCollection $filterCollection
+     */
+    private $filterCollection;
 
     public static function getInstance(): Manager
     {
@@ -41,5 +51,19 @@ class Manager
         return $this->em;
     }
 
+    /**
+     * @return FilterCollection
+     */
+    public function getFilterCollection(): FilterCollection
+    {
+        return $this->filterCollection;
+    }
 
+    /**
+     * @param FilterCollection $filterCollection
+     */
+    public function setFilterCollection(FilterCollection $filterCollection): void
+    {
+        $this->filterCollection = $filterCollection;
+    }
 }

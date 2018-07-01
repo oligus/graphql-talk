@@ -3,25 +3,21 @@
 namespace Server\Schema;
 
 use Server\Schema\Types\QueryType;
-use Server\Schema\Types\Track;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
+use GraphQL\Type\Definition\ObjectType;
 
 /**
- * Class Types
- *
- * Acts as a registry and factory for your types.
- *
- * As simplistic as possible for the sake of clarity of this example.
- * Your own may be more dynamic (or even code-generated).
- *
- * @package GraphQL\Examples\Blog
+ * Class TypeManager
+ * @package Server\Schema
  */
 class TypeManager
 {
-    private static $query;
-    private static $track;
+    /**
+     * @var array $types
+     */
+    private static $types = [];
 
     /**
      * @return QueryType
@@ -29,14 +25,34 @@ class TypeManager
      */
     public static function query()
     {
-        return self::$query ?: (self::$query = new QueryType());
+        if(array_key_exists('query', self::$types)) {
+            return self::$types['query'];
+        }
+
+        self::$types['query'] = new QueryType();
+
+        return self::$types['query'];
     }
 
-    public static function track()
+    /**
+     * @param $typeName
+     * @return ObjectType
+     */
+    public static function get($typeName): ObjectType
     {
-        return self::$track ?: (self::$track = new Track());
+        if(array_key_exists($typeName, self::$types)) {
+            return self::$types[$typeName];
+        }
+
+        $field = 'Server\Schema\Types\\' . ucfirst($typeName);
+        self::$types[$typeName] = new $field;
+
+        return self::$types[$typeName];
     }
 
+    /**
+     * @return \GraphQL\Type\Definition\BooleanType
+     */
     public static function boolean()
     {
         return Type::boolean();

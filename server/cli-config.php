@@ -15,7 +15,7 @@ $paths = array(realpath(__DIR__ . '/src/Database/Entities'));
 $isDevMode = true;
 
 $connectionParams = array(
-    'url' => 'sqlite:///' . realpath(__DIR__ . './data') .'/chinook.db'
+    'url' => 'sqlite:///' . './data/chinook.db'
 );
 
 $config = Setup::createConfiguration($isDevMode);
@@ -31,5 +31,6 @@ $manager->setEm($em);
 
 $platform = $em->getConnection()->getDatabasePlatform();
 $platform->registerDoctrineTypeMapping(' ', 'string');
+$platform->registerDoctrineTypeMapping('', 'string');
 
 return ConsoleRunner::createHelperSet($em);

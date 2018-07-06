@@ -6,6 +6,7 @@ use Server\Database\Entities\Tracks;
 use Server\Schema\TypeManager;
 use Server\Schema\AppContext;
 use Server\Database\Manager;
+use Server\Helpers\ClassHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
@@ -40,6 +41,7 @@ class Track implements Field
      * @param AppContext $appContext
      * @param ResolveInfo $resolveInfo
      * @return array|mixed|null
+     * @throws \ReflectionException
      */
     public static function resolve($value, $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
@@ -54,11 +56,14 @@ class Track implements Field
         }
 
         return [
-            'id' => $track->getId(),
-            'name' => $track->getName(),
-            'composer' => $track->getComposer(),
-            'milliseconds' => $track->getMilliseconds(),
-            'price' => $track->getPrice()
+            'id' => ClassHelper::getPropertyValue($track, 'id'),
+            'name' => ClassHelper::getPropertyValue($track, 'name'),
+            'composer' => ClassHelper::getPropertyValue($track, 'composer'),
+            'milliseconds' => ClassHelper::getPropertyValue($track, 'milliseconds'),
+            'price' => ClassHelper::getPropertyValue($track, 'price'),
+            'album' => ClassHelper::getPropertyValue($track, 'album'),
+            'genre' => ClassHelper::getPropertyValue($track, 'genre'),
+            'mediaType' => ClassHelper::getPropertyValue($track, 'mediaType')
         ];
     }
 

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Server\Database\Repositories\CommonRepository")
  * @ORM\Table(name="tracks")
  */
 class Tracks
@@ -39,138 +39,28 @@ class Tracks
     protected $price;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Albums", fetch="EAGER")
+     * @ORM\JoinColumn(name="AlbumId", referencedColumnName="AlbumId")
+     */
+    protected $album;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Genres", fetch="EAGER")
+     * @ORM\JoinColumn(name="GenreId", referencedColumnName="GenreId")
+     */
+    protected $genre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="MediaTypes", fetch="EAGER")
+     * @ORM\JoinColumn(name="MediaTypeId", referencedColumnName="MediaTypeId")
+     */
+    protected $mediaType;
+
+    /**
      * Playlists constructor.
      */
     public function __construct()
     {
         $this->playlists =  new ArrayCollection();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAlbums()
-    {
-        return $this->albums;
-    }
-
-    /**
-     * @param mixed $albums
-     */
-    public function setAlbums($albums): void
-    {
-        $this->albums = $albums;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMediaTypes()
-    {
-        return $this->mediaTypes;
-    }
-
-    /**
-     * @param mixed $mediaTypes
-     */
-    public function setMediaTypes($mediaTypes): void
-    {
-        $this->mediaTypes = $mediaTypes;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGenres()
-    {
-        return $this->genres;
-    }
-
-    /**
-     * @param mixed $genres
-     */
-    public function setGenres($genres): void
-    {
-        $this->genres = $genres;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getComposer()
-    {
-        return $this->composer;
-    }
-
-    /**
-     * @param mixed $composer
-     */
-    public function setComposer($composer): void
-    {
-        $this->composer = $composer;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMilliseconds()
-    {
-        return $this->milliseconds;
-    }
-
-    /**
-     * @param mixed $milliseconds
-     */
-    public function setMilliseconds($milliseconds): void
-    {
-        $this->milliseconds = $milliseconds;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price): void
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlaylists()
-    {
-        return $this->playlists;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

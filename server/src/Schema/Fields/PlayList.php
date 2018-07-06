@@ -2,7 +2,7 @@
 
 namespace Server\Schema\Fields;
 
-use Server\Database\Entities\Artists;
+use Server\Database\Entities\Playlists;
 use Server\Schema\TypeManager;
 use Server\Schema\AppContext;
 use Server\Database\Manager;
@@ -10,10 +10,10 @@ use Server\Helpers\ClassHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
- * Class Artist
+ * Class PlayList
  * @package Server\Schema\Fields
  */
-class Artist implements Field
+class PlayList implements Field
 {
     /**
      * @return array
@@ -22,7 +22,7 @@ class Artist implements Field
     public static function getField(): array
     {
         return [
-            'type' => TypeManager::get('artist'),
+            'type' => TypeManager::get('playList'),
             'args' => [
                 'id' => [
                     'type' => TypeManager::ID(),
@@ -45,21 +45,19 @@ class Artist implements Field
      */
     public static function resolve($value, $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        if(!empty($value) && array_key_exists('artist', $value)) {
-            $artist = $value['artist'];
+        if(!empty($value) && array_key_exists('playlist', $value)) {
+            $playList = $value['playlist'];
         } else {
-            $artist = self::getData($args);
+            $playList = self::getData($args);
         }
 
-        if(!$artist instanceof Artists) {
+        if(!$playList instanceof PlayLists) {
             return null;
         }
 
         return [
-            'id' => ClassHelper::getPropertyValue($artist, 'id'),
-            'name' => ClassHelper::getPropertyValue($artist, 'name'),
-            // Nested round about via albums->artist
-            // 'albums' => ClassHelper::getPropertyValue($artist, 'albums')
+            'id' => ClassHelper::getPropertyValue($playList, 'id'),
+            'name' => ClassHelper::getPropertyValue($playList, 'name')
         ];
     }
 
@@ -74,6 +72,6 @@ class Artist implements Field
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = Manager::getInstance()->getEm();
 
-        return $em->getRepository(Artists::class)->find($id);
+        return $em->getRepository(Playlists::class)->find($id);
     }
 }

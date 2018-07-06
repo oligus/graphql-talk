@@ -23,7 +23,7 @@ class Albums
     protected $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Artists", inversedBy="albums")
+     * @ORM\ManyToOne(targetEntity="Artists", inversedBy="albums", fetch="EAGER")
      * @ORM\JoinColumn(name="ArtistId", referencedColumnName="ArtistId")
      */
     protected $artist;

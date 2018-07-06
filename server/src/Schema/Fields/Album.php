@@ -45,7 +45,6 @@ class Album implements Field
      */
     public static function resolve($value, $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        die('album');
         if(!empty($value) && array_key_exists('album', $value)) {
             $album = $value['album'];
         } else {

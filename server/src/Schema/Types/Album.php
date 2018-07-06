@@ -23,7 +23,8 @@ class Album extends ObjectType
             'description' => 'Album',
             'fields' => [
                 'id' => ['type' => TypeManager::ID()],
-                'title' => ['type' => TypeManager::string()]
+                'title' => ['type' => TypeManager::string()],
+                'artist' => Artist::getField()
             ]
         ];
 

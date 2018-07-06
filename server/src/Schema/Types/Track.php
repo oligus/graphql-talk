@@ -2,6 +2,9 @@
 
 namespace Server\Schema\Types;
 
+use Server\Schema\Fields\Album;
+use Server\Schema\Fields\Genre;
+use Server\Schema\Fields\MediaType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -11,6 +14,10 @@ use GraphQL\Type\Definition\Type;
  */
 class Track extends ObjectType
 {
+    /**
+     * Track constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         $config = [
@@ -21,11 +28,10 @@ class Track extends ObjectType
                 'name'          => ['type' => Type::string()],
                 'composer'      => ['type' => Type::string()],
                 'milliseconds'  => ['type' => Type::string()],
-                'price'         => ['type' => Type::float()]
-                //'albums'  => ['type' => Type::string()], // album
-                //'mediaTypes'  => ['type' => Type::string()], // $mediaType
-                //'genres'  => ['type' => Type::string()], // genre
-
+                'price'         => ['type' => Type::float()],
+                'album'         => Album::getField(),
+                'genre'         => Genre::getField(),
+                'mediaType'     => MediaType::getField()
             ]
         ];
 

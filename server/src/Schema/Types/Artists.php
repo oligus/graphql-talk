@@ -4,26 +4,25 @@ namespace Server\Schema\Types;
 
 use Server\Schema\TypeManager;
 use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
 
 /**
  * Class Albums
  * @package Server\Schema\Types
  */
-class Albums extends ObjectType
+class Artists extends ObjectType
 {
     public function __construct()
     {
         $config = [
-            'name' => 'Albums',
-            'description' => 'Albums',
+            'name' => 'Artists',
+            'description' => 'Artists',
             'fields' => [
                 'total' => [
                     'type' => TypeManager::int(),
-                    'description' => 'Record count',
+                    'description' => 'Total number of records',
                 ],
                 'nodes' => [
-                    'type' =>  TypeManager::listOf(TypeManager::get('album')),
+                    'type' =>  TypeManager::listOf(TypeManager::get('artist')),
                     'description' => 'Albums',
                 ]
             ]

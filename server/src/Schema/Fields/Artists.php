@@ -2,7 +2,7 @@
 
 namespace Server\Schema\Fields;
 
-use Server\Database\Entities\Albums as AlbumsEntity;
+use Server\Database\Entities\Artists as ArtistsEntity;
 use Server\Schema\TypeManager;
 use Server\Schema\AppContext;
 use Server\Database\Manager;
@@ -14,7 +14,7 @@ use GraphQL\Type\Definition\ResolveInfo;
  * Class Albums
  * @package Server\Schema\Fields
  */
-class Albums implements Field
+class Artists implements Field
 {
     /**
      * @return array
@@ -22,16 +22,16 @@ class Albums implements Field
      */
     public static function getField(): array
     {
-        $filter = Filter::create('AlbumsFilter');
+        $filter = Filter::create('ArtistsFilter');
         $filter->addField('id', ['type' => TypeManager::id()]);
-        $filter->addField('title', ['type' => TypeManager::string()]);
+        $filter->addField('name', ['type' => TypeManager::string()]);
 
         Manager::getInstance()->getFilterCollection()->add($filter);
 
         return [
-            'type' => TypeManager::get('albums'),
+            'type' => TypeManager::get('artists'),
             'args' => [
-                'filter' => Manager::getInstance()->getFilterCollection()->get('AlbumsFilter'),
+                'filter' => Manager::getInstance()->getFilterCollection()->get('ArtistsFilter'),
                 'first' => [
                     'type' => TypeManager::int()
                 ],
@@ -61,27 +61,25 @@ class Albums implements Field
      */
     public static function resolve($value, $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        if(array_key_exists('albums', $value)) {
-            $albums = $value['albums'];
-        } elseif ($value instanceof AlbumsEntity) {
-            $albums = [$value];
+        die('plural');
+        if ($value instanceof ArtistsEntity) {
+            $artists = [$value];
         } else {
-            $albums = self::getData($args);
+            $artists = self::getData($args);
         }
 
         $nodes = [];
 
-        /** @var AlbumsEntity $album */
-        foreach ($albums as $album) {
+        /** @var ArtistsEntity $artist */
+        foreach ($artists as $artist) {
             $nodes[] = [
-                'id' => ClassHelper::getPropertyValue($album, 'id'),
-                'title' => ClassHelper::getPropertyValue($album, 'title'),
-                'artist' => ClassHelper::getPropertyValue($album, 'artist'),
+                'id' => ClassHelper::getPropertyValue($artist, 'id'),
+                'name' => ClassHelper::getPropertyValue($artist, 'name'),
             ];
         }
 
         return [
-            'total' => self::getCount(),
+            'count' => self::getCount(),
             'nodes' => $nodes
         ];
     }
@@ -96,7 +94,7 @@ class Albums implements Field
         $em = Manager::getInstance()->getEm();
 
         /** @var \Server\Database\Repositories\CommonRepository $repo*/
-        $repo = $em->getRepository(AlbumsEntity::class);
+        $repo = $em->getRepository(ArtistsEntity::class);
 
         return $repo->getCount();
     }
@@ -108,7 +106,7 @@ class Albums implements Field
     public static function getData(array $args)
     {
         /** @var \Server\Database\Repositories\CommonRepository $repo */
-        $repo = Manager::getInstance()->getEm()->getRepository(AlbumsEntity::class);
+        $repo = Manager::getInstance()->getEm()->getRepository(ArtistsEntity::class);
         return $repo->filter($args);
     }
 }

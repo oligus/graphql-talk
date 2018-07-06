@@ -3,7 +3,8 @@
 namespace Server\Schema\Types;
 
 use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
+use Server\Schema\TypeManager;
+use Server\Schema\Fields\Artist;
 
 /**
  * Class Album
@@ -11,14 +12,18 @@ use GraphQL\Type\Definition\Type;
  */
 class Album extends ObjectType
 {
+    /**
+     * Album constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         $config = [
             'name' => 'Album',
             'description' => 'Album',
             'fields' => [
-                'id' => ['type' => Type::ID()],
-                'title' => ['type' => Type::string()]
+                'id' => ['type' => TypeManager::ID()],
+                'title' => ['type' => TypeManager::string()]
             ]
         ];
 

@@ -23,6 +23,10 @@ class JsonHelper
             return [];
         }
 
+        if($json === 'undefined') {
+            return [];
+        }
+
         $json = self::sanitize($json);
 
         $jsonArray = [];

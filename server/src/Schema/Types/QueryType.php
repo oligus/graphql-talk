@@ -8,6 +8,7 @@ use Server\Schema\Fields\MediaType;
 use Server\Schema\Fields\Album;
 use Server\Schema\Fields\Albums;
 use Server\Schema\Fields\Artist;
+use Server\Schema\Fields\Artists;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
@@ -31,6 +32,7 @@ class QueryType extends ObjectType
                 'album' => Album::getField(),
                 'albums' => Albums::getField(),
                 'artist' => Artist::getField(),
+                'artists' => Artists::getField()
             ]
         ];
 

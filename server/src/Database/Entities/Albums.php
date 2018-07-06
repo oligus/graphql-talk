@@ -26,5 +26,5 @@ class Albums
      * @ORM\ManyToOne(targetEntity="Artists", inversedBy="albums")
      * @ORM\JoinColumn(name="ArtistId", referencedColumnName="ArtistId")
      */
-    protected $artists;
+    protected $artist;
 }

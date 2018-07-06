@@ -58,6 +58,7 @@ class Artist implements Field
         return [
             'id' => ClassHelper::getPropertyValue($artist, 'id'),
             'name' => ClassHelper::getPropertyValue($artist, 'name'),
+            'albums' => ClassHelper::getPropertyValue($artist, 'albums')
         ];
     }
 

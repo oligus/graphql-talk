@@ -37,7 +37,7 @@ class Response
     public function get()
     {
         $appContext = new AppContext();
-        $appContext->rootUrl = '/';
+        $appContext->rootUrl = 'http://localhost:8080';
         $appContext->request = $_REQUEST;
 
         // GraphQL schema to be passed to query executor:

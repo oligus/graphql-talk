@@ -2,6 +2,7 @@
 
 namespace Server\Schema\Types;
 
+use Server\Schema\Fields\Mutation\AddArtist;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
@@ -18,8 +19,11 @@ class MutationType extends ObjectType
     {
         $config = [
             'name' => 'Mutation',
-            'fields' => []
+            'fields' => [
+                'addArtist' => AddArtist::getField()
+            ]
         ];
+
         parent::__construct($config);
     }
 }

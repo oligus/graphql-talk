@@ -5,7 +5,7 @@ namespace Server\Database\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Server\Database\Repositories\CommonRepository")
  * @ORM\Table(name="artists")
  */
 class Artists
@@ -23,7 +23,7 @@ class Artists
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Albums", mappedBy="artists")
+     * @ORM\OneToMany(targetEntity="Albums", mappedBy="artist")
      */
     protected $albums;
 }

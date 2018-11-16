@@ -15,7 +15,7 @@ $paths = array(realpath(__DIR__ . '/src/Database/Entities'));
 $isDevMode = true;
 
 $connectionParams = array(
-    'url' => 'sqlite:///' . './data/chinook.db'
+    'url' => 'sqlite:///' . './data/blog.db'
 );
 
 $config = Setup::createConfiguration($isDevMode);

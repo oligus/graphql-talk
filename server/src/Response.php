@@ -9,6 +9,8 @@ use Server\Helpers\JsonHelper;
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
 use GraphQL\Error\Debug;
+use GraphQL\Utils\BuildSchema;
+use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * Class Response

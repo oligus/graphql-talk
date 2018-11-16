@@ -1,0 +1,45 @@
+scalar DateTime
+
+interface Item {
+    id: ID!
+    author: Author!
+    title: String
+    content: String
+    date: DateTime!
+}
+
+type Author {
+    id: ID!
+    name: String
+}
+
+type Comment implements Item {
+    id: ID!
+    author: Author!
+    title: String
+    content: String
+    date: DateTime!
+}
+
+type Post implements Item {
+    id: ID!
+    author: Author!
+    title: String
+    content: String
+    date: DateTime!
+    comments: [Comment]!
+}
+
+input AuthorsFilter {
+    id: ID
+    name: String
+}
+
+type Query {
+    authors: [Author!]!
+    posts: [Post!]!
+}
+
+schema {
+    Query: Query
+}

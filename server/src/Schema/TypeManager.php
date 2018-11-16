@@ -7,6 +7,7 @@ use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\InputObjectType;
 
 /**
  * Class TypeManager
@@ -18,6 +19,11 @@ class TypeManager
      * @var array $types
      */
     private static $types = [];
+
+    /**
+     * @var array $types
+     */
+    private static $inputTypes = [];
 
     /**
      * @return QueryType
@@ -48,6 +54,23 @@ class TypeManager
         self::$types[$typeName] = new $field;
 
         return self::$types[$typeName];
+    }
+
+    /**
+     * @param $typeName
+     * @return InputObjectType
+     */
+    public static function getInput($typeName): InputObjectType
+    {
+        if(array_key_exists($typeName, self::$types)) {
+            return self::$inputTypes[$typeName];
+        }
+
+        $inputType = 'Server\Schema\Types\Inputs\\' . ucfirst($typeName);
+
+        self::$inputTypes[$typeName] = new $inputType;
+
+        return self::$inputTypes[$typeName];
     }
 
     /**

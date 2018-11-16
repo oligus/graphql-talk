@@ -2,17 +2,7 @@
 
 namespace Server\Schema\Types;
 
-use Server\Schema\Fields\Track;
-use Server\Schema\Fields\Genre;
-use Server\Schema\Fields\Genres;
-use Server\Schema\Fields\MediaType;
-use Server\Schema\Fields\MediaTypes;
-use Server\Schema\Fields\Album;
-use Server\Schema\Fields\Albums;
-use Server\Schema\Fields\Artist;
-use Server\Schema\Fields\Artists;
-use Server\Schema\Fields\PlayList;
-use Server\Schema\Fields\PlayLists;
+use Server\Schema\Fields;
 use GraphQL\Type\Definition\ObjectType;
 
 /**
@@ -30,21 +20,14 @@ class QueryType extends ObjectType
         $config = [
             'name' => 'Query',
             'fields' => [
-                'track' => Track::getField(),
-                'genre' => Genre::getField(),
-                'genres' => Genres::getField(),
-                'mediaType' => MediaType::getField(),
-                'mediaTypes' => MediaTypes::getField(),
-                'album' => Album::getField(),
-                'albums' => Albums::getField(),
-                'artist' => Artist::getField(),
-                'artists' => Artists::getField(),
-                'playList' => PlayList::getField(),
-                'playLists' => PlayLists::getField()
+                'author'        => Fields\Author::getField(),
+                'authors'       => Fields\Authors::getField(),
+                'post'          => Fields\Post::getField(),
+                'posts'         => Fields\Posts::getField(),
+                'comment'       => Fields\Comment::getField(),
             ]
         ];
 
         parent::__construct($config);
-
     }
 }

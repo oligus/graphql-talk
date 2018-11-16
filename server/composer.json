@@ -13,6 +13,7 @@
     }
   },
   "require": {
+    "ext-json": "*",
     "doctrine/orm": "^2.6",
     "symfony/validator": "^4.1",
     "webonyx/graphql-php": "^0.12.2"

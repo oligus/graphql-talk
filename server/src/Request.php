@@ -2,7 +2,6 @@
 
 namespace Server;
 
-use Server\Helpers\ErrorHelper;
 /**
  * Class Request
  * @package Server

@@ -4,6 +4,7 @@ namespace Server\Schema\Types;
 
 use GraphQL\Type\Definition\ObjectType;
 use Server\Schema\TypeManager;
+use Server\Schema\Fields\Posts;
 
 /**
  * Class Author
@@ -12,8 +13,7 @@ use Server\Schema\TypeManager;
 class Author extends ObjectType
 {
     /**
-     * Artist constructor.
-     * @throws \Exception
+     * Author constructor.
      */
     public function __construct()
     {
@@ -22,8 +22,15 @@ class Author extends ObjectType
             'description' => 'Author of a post, comment or even both.',
             'fields' => function() {
                 return [
-                    'id' => ['type' => TypeManager::id()],
-                    'name' => ['type' => TypeManager::string()]
+                    'id' => [
+                        'type' => TypeManager::id(),
+                        'description' => 'A unique id of the author'
+                    ],
+                    'name' => [
+                        'type' => TypeManager::string(),
+                        'description' => 'Name of the author'
+                    ],
+                    'posts' => Posts::getField()
                 ];
             }
         ];

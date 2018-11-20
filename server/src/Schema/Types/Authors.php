@@ -11,6 +11,9 @@ use GraphQL\Type\Definition\ObjectType;
  */
 class Authors extends ObjectType
 {
+    /**
+     * Authors constructor.
+     */
     public function __construct()
     {
         $config = [

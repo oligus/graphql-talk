@@ -20,11 +20,12 @@ class QueryType extends ObjectType
         $config = [
             'name' => 'Query',
             'fields' => [
-                'author'        => Fields\Author::getField(),
-                'authors'       => Fields\Authors::getField(),
-                'post'          => Fields\Post::getField(),
-                'posts'         => Fields\Posts::getField(),
-                'comment'       => Fields\Comment::getField(),
+                'author'    => Fields\Author::getField(),
+                'authors'   => Fields\Authors::getField(),
+                'post'      => Fields\Post::getField(),
+                'posts'     => Fields\Posts::getField(),
+                'comment'   => Fields\Comment::getField(),
+                'comments'  => Fields\Comments::getField(),
             ]
         ];
 

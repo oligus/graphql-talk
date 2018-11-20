@@ -61,7 +61,10 @@ class CreateComment implements Field
 
         return [
             'id' => ClassHelper::getPropertyValue($comment, 'id'),
+            'author' => ClassHelper::getPropertyValue($comment, 'author'),
             'title' => ClassHelper::getPropertyValue($comment, 'title'),
+            'content' => ClassHelper::getPropertyValue($comment, 'content'),
+            'date' => ClassHelper::getPropertyValue($comment, 'date')->format('Y-m-d')
         ];
     }
 

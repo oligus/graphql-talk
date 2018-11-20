@@ -4,6 +4,7 @@ namespace Server\Schema\Types;
 
 use GraphQL\Type\Definition\ObjectType;
 use Server\Schema\TypeManager;
+use Server\Schema\Fields\Author;
 
 /**
  * Class Comment
@@ -19,11 +20,11 @@ class Comment extends ObjectType
     {
         $config = [
             'name' => 'Comment',
-            'description' => 'A blog post',
+            'description' => 'A comment for a blog post',
             'fields' => function() {
                 return [
                     'id' => ['type' => TypeManager::ID()],
-                    'author' => ['type' => TypeManager::get('author')],
+                    'author' => Author::getField(),
                     'title' => ['type' => TypeManager::string()],
                     'content' => ['type' => TypeManager::string()],
                     'date' => ['type' => TypeManager::string()],

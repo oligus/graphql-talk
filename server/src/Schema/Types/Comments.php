@@ -11,15 +11,22 @@ use GraphQL\Type\Definition\ObjectType;
  */
 class Comments extends ObjectType
 {
+    /**
+     * Comments constructor.
+     */
     public function __construct()
     {
         $config = [
             'name' => 'Comments',
-            'description' => 'Comments',
+            'description' => 'A list of comments',
             'fields' => [
                 'total' => [
                     'type' => TypeManager::int(),
                     'description' => 'Total number of records',
+                ],
+                'count' => [
+                    'type' => TypeManager::int(),
+                    'description' => 'Number of records in selection',
                 ],
                 'nodes' => [
                     'type' =>  TypeManager::listOf(TypeManager::get('comment')),

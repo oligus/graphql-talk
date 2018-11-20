@@ -47,6 +47,8 @@ class Author implements Field
     {
         if(!empty($value) && array_key_exists('author', $value)) {
             $author = $value['author'];
+        } elseif ($value instanceof AuthorEntity) {
+            $author = $value;
         } else {
             $author = self::getData($args);
         }
@@ -58,6 +60,8 @@ class Author implements Field
         return [
             'id' => ClassHelper::getPropertyValue($author, 'id'),
             'name' => ClassHelper::getPropertyValue($author, 'name'),
+            'posts' => ClassHelper::getPropertyValue($author, 'posts'),
+
         ];
     }
 

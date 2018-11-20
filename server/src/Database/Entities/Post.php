@@ -34,7 +34,7 @@ class Post
 
     /**
      * @var Author
-     * @ORM\ManyToOne(targetEntity="Author", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Author", inversedBy="posts", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
     protected $author;

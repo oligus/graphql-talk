@@ -65,6 +65,8 @@ class CreatePost implements Field
         return [
             'id' => ClassHelper::getPropertyValue($post, 'id'),
             'title' => ClassHelper::getPropertyValue($post, 'title'),
+            'content' => ClassHelper::getPropertyValue($post, 'content'),
+            'date' => ClassHelper::getPropertyValue($post, 'date')->format('Y-m-d')
         ];
     }
 

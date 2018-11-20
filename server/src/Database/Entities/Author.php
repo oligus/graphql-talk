@@ -3,6 +3,7 @@
 namespace Server\Database\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Server\Database\Repositories\CommonRepository")
@@ -24,6 +25,12 @@ class Author
      * @ORM\Column(name="name", type="string", length=100)
      */
     protected $name;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="author", cascade={"persist", "remove"}))
+     */
+    protected $posts;
 
     /**
      * @param string $name

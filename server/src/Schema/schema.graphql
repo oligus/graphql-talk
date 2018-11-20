@@ -1,33 +1,32 @@
 scalar DateTime
 
-interface Item {
-    id: ID!
-    author: Author!
-    title: String
-    content: String
-    date: DateTime!
-}
-
 type Author {
     id: ID!
     name: String
+    posts: [Post]!
 }
 
-type Comment implements Item {
+type Comment {
     id: ID!
     author: Author!
     title: String
     content: String
-    date: DateTime!
+    date: String
 }
 
-type Post implements Item {
+type Comments {
+    count: int!
+    total: int!
+    comments: [Comment]
+}
+
+type Post {
     id: ID!
     author: Author!
     title: String
     content: String
-    date: DateTime!
-    comments: [Comment]!
+    date: String
+    comments: Comments!
 }
 
 input AuthorsFilter {
@@ -36,10 +35,9 @@ input AuthorsFilter {
 }
 
 type Query {
-    authors: [Author!]!
-    posts: [Post!]!
+    authors: Author
 }
 
 schema {
-    Query: Query
+    query: Query
 }

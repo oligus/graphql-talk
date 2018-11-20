@@ -60,7 +60,7 @@ class Comment implements Field
             'author' => ClassHelper::getPropertyValue($comment, 'author'),
             'title' => ClassHelper::getPropertyValue($comment, 'title'),
             'content' => ClassHelper::getPropertyValue($comment, 'content'),
-            'date' => ClassHelper::getPropertyValue($comment, 'date'),
+            'date' => ClassHelper::getPropertyValue($comment, 'date')->format('Y-m-d'),
         ];
     }
 

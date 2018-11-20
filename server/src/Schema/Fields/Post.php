@@ -47,6 +47,8 @@ class Post implements Field
     {
         if(!empty($value) && array_key_exists('post', $value)) {
             $post = $value['post'];
+        } elseif ($value instanceof PostEntity) {
+            $post = $value;
         } else {
             $post = self::getData($args);
         }
@@ -58,6 +60,10 @@ class Post implements Field
         return [
             'id' => ClassHelper::getPropertyValue($post, 'id'),
             'title' => ClassHelper::getPropertyValue($post, 'title'),
+            'content' => ClassHelper::getPropertyValue($post, 'content'),
+            'date' => ClassHelper::getPropertyValue($post, 'date')->format('Y-m-d'),
+            'author' => ClassHelper::getPropertyValue($post, 'author'),
+            'comments' => ClassHelper::getPropertyValue($post, 'comments')
         ];
     }
 

@@ -4,6 +4,8 @@ namespace Server\Schema\Types;
 
 use GraphQL\Type\Definition\ObjectType;
 use Server\Schema\TypeManager;
+use Server\Schema\Fields\Author;
+use Server\Schema\Fields\Comments;
 
 /**
  * Class Post
@@ -25,6 +27,9 @@ class Post extends ObjectType
                     'id' => ['type' => TypeManager::ID()],
                     'title' => ['type' => TypeManager::string()],
                     'content' => ['type' => TypeManager::string()],
+                    'date' => ['type' => TypeManager::string()],
+                    'author' => Author::getField(),
+                    'comments' => Comments::getField()
                 ];
             }
         ];

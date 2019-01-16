@@ -79,6 +79,7 @@ class Authors implements Field
 
         return [
             'total' => self::getCount(),
+            'count' => count($authors),
             'nodes' => $nodes
         ];
     }

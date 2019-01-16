@@ -2,13 +2,14 @@
 
 namespace Server\Schema\Types;
 
-use Server\Schema\Fields\Mutation\AddArtist;
 use GraphQL\Type\Definition\ObjectType;
 use Server\Schema\Fields\Mutation\CreateAuthor;
 use Server\Schema\Fields\Mutation\CreateComment;
 use Server\Schema\Fields\Mutation\CreatePost;
 use Server\Schema\Fields\Mutation\DeleteAuthor;
 use Server\Schema\Fields\Mutation\UpdateAuthor;
+use Server\Schema\Fields\Mutation\UpdateComment;
+use Server\Schema\Fields\Mutation\UpdatePost;
 
 /**
  * Class QueryType
@@ -26,12 +27,15 @@ class MutationType extends ObjectType
             'name' => 'Mutation',
             'fields' => function() {
                 return [
-                    'createAuthor' => CreateAuthor::getField(),
-                    'updateAuthor' => UpdateAuthor::getField(),
-                    'deleteAuthor' => DeleteAuthor::getField(),
+                    'createAuthor'  => CreateAuthor::getField(),
+                    'updateAuthor'  => UpdateAuthor::getField(),
+                    'deleteAuthor'  => DeleteAuthor::getField(),
 
-                    'createPost' => CreatePost::getField(),
+                    'createPost'    => CreatePost::getField(),
+                    'updatePost'    => UpdatePost::getField(),
+
                     'createComment' => CreateComment::getField(),
+                    'updateComment' => UpdateComment::getField(),
                 ];
             }
         ];

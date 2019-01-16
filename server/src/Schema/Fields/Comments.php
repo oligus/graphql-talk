@@ -61,7 +61,8 @@ class Comments implements Field
         if(!empty($value) && array_key_exists('comments', $value)) {
             $filter = new FilterDoctrineCollection($value['comments'], $args);
             $comments = $filter->getResult();
-
+        } elseif ($value instanceof Comment) {
+            $comments = [$value];
         } else {
             $comments = self::getData($args);
         }

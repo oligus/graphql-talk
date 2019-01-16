@@ -2,7 +2,6 @@
 
 namespace Server\Schema\Fields\Mutation;
 
-use Server\Database\Entities\Post;
 use Server\Schema\Fields\Field;
 use Server\Database\Entities\Author;
 use Server\Database\Manager;
@@ -12,10 +11,10 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Server\Helpers\ClassHelper;
 
 /**
- * Class CreateAuthor
+ * Class UpdateAuthor
  * @package Server\Schema\Fields\Mutation
  */
-class CreatePost implements Field
+class UpdatePost implements Field
 {
     /**
      * @return array
@@ -24,11 +23,11 @@ class CreatePost implements Field
     public static function getField(): array
     {
         return [
-            'name' => 'createPost',
+            'name' => 'updatePost',
             'args' => [
-                'postInputType' => [
-                    'type' => TypeManager::getInput('PostInputType'),
-                    'name' => 'PostInputType',
+                'commentInput' => [
+                    'type' => TypeManager::getInput('UpdatePostInputType'),
+                    'name' => 'UpdatePostInputType',
                 ]
             ],
             'type' => TypeManager::get('post'),
@@ -48,25 +47,21 @@ class CreatePost implements Field
      */
     public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        $values = $args['PostInputType'];
+        die('update post');
 
-        $post = new Post();
-        $post->setTitle($values['title']);
-        $post->setContent($values['content']);
+        /** @var Author $author */
+        $author = Manager::getInstance()
+            ->getEm()
+            ->getRepository('Server\Database\Entities\Author')
+            ->find( (int) $args['id']);
 
-        $author = Manager::getInstance()->getEm()->getReference(Author::class, $values['authorId']);
-        $post->setAuthor($author);
+        $author->setName($args['name']);
 
-        $post->setDate(new \DateTime());
-
-        Manager::getInstance()->getEm()->persist($post);
         Manager::getInstance()->getEm()->flush();
 
         return [
-            'id' => ClassHelper::getPropertyValue($post, 'id'),
-            'title' => ClassHelper::getPropertyValue($post, 'title'),
-            'content' => ClassHelper::getPropertyValue($post, 'content'),
-            'date' => ClassHelper::getPropertyValue($post, 'date')->format('Y-m-d')
+            'id' => ClassHelper::getPropertyValue($author, 'id'),
+            'name' => ClassHelper::getPropertyValue($author, 'name'),
         ];
     }
 

@@ -8,6 +8,7 @@ use Server\Schema\AppContext;
 use Server\Database\Manager;
 use Server\Helpers\ClassHelper;
 use Server\Schema\Query\Filter;
+use Server\Schema\Query\FilterDoctrineCollection;
 use GraphQL\Type\Definition\ResolveInfo;
 use Doctrine\Common\Collections\Collection;
 
@@ -80,7 +81,8 @@ class Posts implements Field
                 'title' => ClassHelper::getPropertyValue($post, 'title'),
                 'content' => ClassHelper::getPropertyValue($post, 'content'),
                 'date' => ClassHelper::getPropertyValue($post, 'date')->format('Y-m-d'),
-                'comments' => ClassHelper::getPropertyValue($post, 'comments')
+                'comments' => ClassHelper::getPropertyValue($post, 'comments'),
+                'author' => ClassHelper::getPropertyValue($post, 'author')
             ];
         }
 

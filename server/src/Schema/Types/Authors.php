@@ -24,6 +24,10 @@ class Authors extends ObjectType
                     'type' => TypeManager::int(),
                     'description' => 'Total number of records',
                 ],
+                'count' => [
+                    'type' => TypeManager::int(),
+                    'description' => 'Number of records in selection',
+                ],
                 'nodes' => [
                     'type' =>  TypeManager::listOf(TypeManager::get('author')),
                     'description' => 'Authors',

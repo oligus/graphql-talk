@@ -23,6 +23,7 @@ class Author implements Field
     {
         return [
             'type' => TypeManager::get('author'),
+            'description' => 'dfsd',
             'args' => [
                 'id' => [
                     'type' => TypeManager::ID(),

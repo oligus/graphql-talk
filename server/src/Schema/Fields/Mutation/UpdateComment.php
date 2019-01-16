@@ -2,7 +2,7 @@
 
 namespace Server\Schema\Fields\Mutation;
 
-use Server\Database\Entities\Post;
+use Server\Database\Entities\Comment;
 use Server\Schema\Fields\Field;
 use Server\Database\Entities\Author;
 use Server\Database\Manager;
@@ -12,10 +12,10 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Server\Helpers\ClassHelper;
 
 /**
- * Class CreateAuthor
+ * Class UpdateAuthor
  * @package Server\Schema\Fields\Mutation
  */
-class CreatePost implements Field
+class UpdateComment implements Field
 {
     /**
      * @return array
@@ -24,14 +24,13 @@ class CreatePost implements Field
     public static function getField(): array
     {
         return [
-            'name' => 'createPost',
+            'name' => 'updateComment',
             'args' => [
-                'postInputType' => [
-                    'type' => TypeManager::getInput('PostInputType'),
-                    'name' => 'PostInputType',
-                ]
+                'id' => TypeManager::nonNull(TypeManager::id()),
+                'title' => TypeManager::string(),
+                'content' => TypeManager::string()
             ],
-            'type' => TypeManager::get('post'),
+            'type' => TypeManager::get('comment'),
             'resolve' => function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo) {
                 return self::resolve($value, $args, $appContext, $resolveInfo);
             }
@@ -48,25 +47,28 @@ class CreatePost implements Field
      */
     public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        $values = $args['PostInputType'];
+        /** @var Comment $comment */
+        $comment = Manager::getInstance()
+            ->getEm()
+            ->getRepository('Server\Database\Entities\Comment')
+            ->find( (int) $args['id']);
 
-        $post = new Post();
-        $post->setTitle($values['title']);
-        $post->setContent($values['content']);
+        if(isset($args['title'])) {
+            $comment->setTitle($args['title']);
+        }
 
-        $author = Manager::getInstance()->getEm()->getReference(Author::class, $values['authorId']);
-        $post->setAuthor($author);
+        if(isset($args['content'])) {
+            $comment->setContent($args['content']);
+        }
 
-        $post->setDate(new \DateTime());
-
-        Manager::getInstance()->getEm()->persist($post);
         Manager::getInstance()->getEm()->flush();
 
         return [
-            'id' => ClassHelper::getPropertyValue($post, 'id'),
-            'title' => ClassHelper::getPropertyValue($post, 'title'),
-            'content' => ClassHelper::getPropertyValue($post, 'content'),
-            'date' => ClassHelper::getPropertyValue($post, 'date')->format('Y-m-d')
+            'id' => ClassHelper::getPropertyValue($comment, 'id'),
+            'author' => ClassHelper::getPropertyValue($comment, 'author'),
+            'title' => ClassHelper::getPropertyValue($comment, 'title'),
+            'content' => ClassHelper::getPropertyValue($comment, 'content'),
+            'date' => ClassHelper::getPropertyValue($comment, 'date')->format('Y-m-d'),
         ];
     }
 

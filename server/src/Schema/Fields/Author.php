@@ -23,13 +23,8 @@ class Author implements Field
     {
         return [
             'type' => TypeManager::get('author'),
-            'description' => 'dfsd',
-            'args' => [
-                'id' => [
-                    'type' => TypeManager::ID(),
-                    'defaultValue' => 0
-                ],
-            ],
+            'description' => 'Author of a post, comment or even both.',
+            'args' => ['id' => TypeManager::id()],
             'resolve' => function ($value, $args, AppContext $appContext, ResolveInfo $resolveInfo) {
                 return self::resolve($value, $args, $appContext,  $resolveInfo);
             }

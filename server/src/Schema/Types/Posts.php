@@ -15,7 +15,7 @@ class Posts extends ObjectType
     {
         $config = [
             'name' => 'Posts',
-            'description' => 'Posts',
+            'description' => 'A list of blog posts',
             'fields' => [
                 'total' => [
                     'type' => TypeManager::int(),

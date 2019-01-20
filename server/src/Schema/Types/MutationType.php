@@ -25,6 +25,7 @@ class MutationType extends ObjectType
     {
         $config = [
             'name' => 'Mutation',
+            'description' => 'Mutate blog data',
             'fields' => function() {
                 return [
                     'createAuthor'  => CreateAuthor::getField(),

@@ -18,7 +18,7 @@ class Comments extends ObjectType
     {
         $config = [
             'name' => 'Comments',
-            'description' => 'A list of comments',
+            'description' => 'A list of blog post comments',
             'fields' => [
                 'total' => [
                     'type' => TypeManager::int(),

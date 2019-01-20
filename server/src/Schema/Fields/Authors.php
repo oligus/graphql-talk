@@ -30,6 +30,7 @@ class Authors implements Field
 
         return [
             'type' => TypeManager::get('authors'),
+            'description' => 'Metadata for authors',
             'args' => [
                 'filter' => Manager::getInstance()->getFilterCollection()->get('AuthorFilter'),
                 'first' => [

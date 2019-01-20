@@ -19,6 +19,7 @@ class QueryType extends ObjectType
     {
         $config = [
             'name' => 'Query',
+            'description' => 'A simple blog API',
             'fields' => [
                 'author'    => Fields\Author::getField(),
                 'authors'   => Fields\Authors::getField(),

@@ -23,12 +23,7 @@ class Post implements Field
     {
         return [
             'type' => TypeManager::get('post'),
-            'args' => [
-                'id' => [
-                    'type' => TypeManager::ID(),
-                    'defaultValue' => 0
-                ],
-            ],
+            'args' => ['id' => TypeManager::nonNull(TypeManager::id())],
             'resolve' => function ($value, $args, AppContext $appContext, ResolveInfo $resolveInfo) {
                 return self::resolve($value, $args, $appContext,  $resolveInfo);
             }

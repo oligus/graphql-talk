@@ -29,7 +29,7 @@ class CreateComment implements Field
             'args' => [
                 'commentInput' => [
                     'type' => TypeManager::getInput('CommentInputType'),
-                    'name' => 'CommentInputType',
+                    'name' => 'input',
                 ]
             ],
             'type' => TypeManager::get('comment'),
@@ -49,7 +49,7 @@ class CreateComment implements Field
      */
     public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        $values = $args['CommentInputType'];
+        $values = $args['input'];
 
         $author = Manager::getInstance()->getEm()->getReference(Author::class, $values['authorId']);
         $post = Manager::getInstance()->getEm()->getReference(Post::class, $values['postId']);

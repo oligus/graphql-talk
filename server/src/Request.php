@@ -28,6 +28,6 @@ class Request
             'variables' => $variables
         ]);
 
-        echo json_encode($response->get());
+        return json_encode($response->get());
     }
 }

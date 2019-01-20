@@ -57,7 +57,6 @@ class Author implements Field
             'id' => ClassHelper::getPropertyValue($author, 'id'),
             'name' => ClassHelper::getPropertyValue($author, 'name'),
             'posts' => ClassHelper::getPropertyValue($author, 'posts'),
-
         ];
     }
 

@@ -14,7 +14,7 @@ use Server\Helpers\ClassHelper;
  * Class DeleteAuthor
  * @package Server\Schema\Fields\Mutation
  */
-class DeleteAuthor implements Field
+class DeleteAuthor
 {
     /**
      * @return array
@@ -49,15 +49,15 @@ class DeleteAuthor implements Field
             ->getRepository('Server\Database\Entities\Author')
             ->find( (int) $args['id']);
 
+        $authorCopy = clone $author;
 
         Manager::getInstance()->getEm()->remove($author);
         Manager::getInstance()->getEm()->flush();
 
+        return [
+            'id' => ClassHelper::getPropertyValue($authorCopy, 'id'),
+            'name' => ClassHelper::getPropertyValue($authorCopy, 'name'),
+            'posts' => ClassHelper::getPropertyValue($authorCopy, 'posts'),
+        ];
     }
-
-    public static function getData(array $args)
-    {
-        // TODO: Implement getData() method.
-    }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Server\Schema\Fields\Mutation;
 
-use Server\Schema\Fields\Field;
 use Server\Database\Entities\Author;
 use Server\Database\Manager;
 use Server\Schema\TypeManager;
@@ -14,7 +13,7 @@ use Server\Helpers\ClassHelper;
  * Class CreateAuthor
  * @package Server\Schema\Fields\Mutation
  */
-class CreateAuthor implements Field
+class CreateAuthor
 {
     /**
      * @return array
@@ -37,12 +36,12 @@ class CreateAuthor implements Field
     /**
      * @param $value
      * @param array $args
-     * @param AppContext $appContext
-     * @param ResolveInfo $resolveInfo
-     * @return mixed
-     * @throws \Exception
+     * @return array
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \ReflectionException
      */
-    public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo)
+    public static function resolve($value, array $args)
     {
         $author = Author::create($args['name']);
 
@@ -54,10 +53,4 @@ class CreateAuthor implements Field
             'name' => ClassHelper::getPropertyValue($author, 'name'),
         ];
     }
-
-    public static function getData(array $args)
-    {
-        // TODO: Implement getData() method.
-    }
-
 }

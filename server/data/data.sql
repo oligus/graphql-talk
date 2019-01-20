@@ -38,8 +38,8 @@ INSERT INTO posts VALUES(10,10,'The Ultimate Guide To GraphQL', 'Ugisejuf ceggis
 
 
 CREATE TABLE comments (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER DEFAULT NULL, post INTEGER DEFAULT NULL, title VARCHAR(100) NOT NULL COLLATE BINARY, content VARCHAR(255) NOT NULL COLLATE BINARY, commentDate DATETIME NOT NULL, CONSTRAINT FK_5F9E962AF675F31B FOREIGN KEY (author_id) REFERENCES authors (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_5F9E962A5A8A6C8D FOREIGN KEY (post) REFERENCES posts (id) NOT DEFERRABLE INITIALLY IMMEDIATE);
-INSERT INTO comments VALUES(1,3,1,'It works!','The author is spot on!','2018-11-18 13:29:47');
-INSERT INTO comments VALUES(2,4,1,'Valuable lesson','I learned tons from this simple lesson','2018-11-18 13:29:58');
+INSERT INTO comments VALUES(1,3,1,'It works!','The author is spot on!', CURRENT_TIMESTAMP);
+INSERT INTO comments VALUES(2,4,1,'Valuable lesson','I learned tons from this simple lesson', CURRENT_TIMESTAMP);
 DELETE FROM sqlite_sequence;
 INSERT INTO sqlite_sequence VALUES('posts',10);
 INSERT INTO sqlite_sequence VALUES('comments',2);

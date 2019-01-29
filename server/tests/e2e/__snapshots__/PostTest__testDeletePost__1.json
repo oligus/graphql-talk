@@ -1,0 +1,10 @@
+{
+    "data": {
+        "deletePost": {
+            "id": "11",
+            "title": "test title",
+            "content": "test content",
+            "date": "2019-01-24"
+        }
+    }
+}

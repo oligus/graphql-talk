@@ -36,12 +36,14 @@ class CreateAuthor
     /**
      * @param $value
      * @param array $args
+     * @param AppContext $appContext
+     * @param ResolveInfo $resolveInfo
      * @return array
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \ReflectionException
      */
-    public static function resolve($value, array $args)
+    public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
         $author = Author::create($args['name']);
 

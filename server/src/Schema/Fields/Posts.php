@@ -10,10 +10,9 @@ use Server\Helpers\ClassHelper;
 use Server\Schema\Query\Filter;
 use Server\Schema\Query\FilterDoctrineCollection;
 use GraphQL\Type\Definition\ResolveInfo;
-use Doctrine\Common\Collections\Collection;
 
 /**
- * Class Authors
+ * Class Posts
  * @package Server\Schema\Fields
  */
 class Posts implements Field
@@ -24,30 +23,23 @@ class Posts implements Field
      */
     public static function getField(): array
     {
-        $filter = Filter::create('AuthorFilter');
+        $filter = Filter::create('PostFilter');
         $filter->addField('id', ['type' => TypeManager::id()]);
-        $filter->addField('name', ['type' => TypeManager::string()]);
+        $filter->addField('title', ['type' => TypeManager::string()]);
+        $filter->addField('content', ['type' => TypeManager::string()]);
 
         Manager::getInstance()->getFilterCollection()->add($filter);
 
         return [
             'type' => TypeManager::get('posts'),
             'args' => [
-                'filter' => Manager::getInstance()->getFilterCollection()->get('AuthorFilter'),
-                'first' => [
-                    'type' => TypeManager::int()
-                ],
-                'offset' => [
-                    'type' => TypeManager::int(),
-                    'defaultValue' => 0
-                ],
-                'after' => [
-                    'type' => TypeManager::int(),
-                    'defaultValue' => 0
-                ],
+                'filter' => Manager::getInstance()->getFilterCollection()->get('PostFilter'),
+                'first' => ['type' => TypeManager::int()],
+                'offset' => ['type' => TypeManager::int(), 'defaultValue' => 0],
+                'after' => ['type' => TypeManager::int(), 'defaultValue' => 0],
             ],
             'resolve' => function ($value, $args, AppContext $appContext, ResolveInfo $resolveInfo) {
-                return self::resolve($value, $args, $appContext,  $resolveInfo);
+                return self::resolve($value, $args, $appContext, $resolveInfo);
             }
         ];
     }
@@ -63,7 +55,7 @@ class Posts implements Field
      */
     public static function resolve($value, $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        if(!empty($value) && array_key_exists('posts', $value)) {
+        if (!empty($value) && array_key_exists('posts', $value)) {
             $filter = new FilterDoctrineCollection($value['posts'], $args);
             $posts = $filter->getResult();
         } elseif ($value instanceof Post) {
@@ -94,21 +86,6 @@ class Posts implements Field
     }
 
     /**
-     * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public static function getCount()
-    {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = Manager::getInstance()->getEm();
-
-        /** @var \Server\Database\Repositories\CommonRepository $repo*/
-        $repo = $em->getRepository(Post::class);
-
-        return $repo->getCount();
-    }
-
-    /**
      * @param array $args
      * @return mixed
      */
@@ -117,5 +94,20 @@ class Posts implements Field
         /** @var \Server\Database\Repositories\CommonRepository $repo */
         $repo = Manager::getInstance()->getEm()->getRepository(Post::class);
         return $repo->filter($args);
+    }
+
+    /**
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public static function getCount()
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = Manager::getInstance()->getEm();
+
+        /** @var \Server\Database\Repositories\CommonRepository $repo */
+        $repo = $em->getRepository(Post::class);
+
+        return $repo->getCount();
     }
 }

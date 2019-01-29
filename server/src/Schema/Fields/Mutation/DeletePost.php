@@ -2,9 +2,8 @@
 
 namespace Server\Schema\Fields\Mutation;
 
-use Server\Database\Entities\Post;
 use Server\Schema\Fields\Field;
-use Server\Database\Entities\Author;
+use Server\Database\Entities\Post;
 use Server\Database\Manager;
 use Server\Schema\TypeManager;
 use Server\Schema\AppContext;
@@ -12,10 +11,10 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Server\Helpers\ClassHelper;
 
 /**
- * Class CreateAuthor
+ * Class DeletePost
  * @package Server\Schema\Fields\Mutation
  */
-class CreatePost implements Field
+class DeletePost
 {
     /**
      * @return array
@@ -24,12 +23,9 @@ class CreatePost implements Field
     public static function getField(): array
     {
         return [
-            'name' => 'createPost',
+            'name' => 'deletePost',
             'args' => [
-                'postInputType' => [
-                    'type' => TypeManager::getInput('PostInputType'),
-                    'name' => 'input',
-                ]
+                'id' => TypeManager::nonNull(TypeManager::id())
             ],
             'type' => TypeManager::get('post'),
             'resolve' => function ($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo) {
@@ -48,36 +44,29 @@ class CreatePost implements Field
      */
     public static function resolve($value, array $args, AppContext $appContext, ResolveInfo $resolveInfo)
     {
-        $values = $args['input'];
+        $id = (int) $args['id'];
 
-        $post = new Post();
-        $post->setTitle($values['title']);
-        $post->setContent($values['content']);
+        $post = Manager::getInstance()
+            ->getEm()
+            ->getRepository('Server\Database\Entities\Post')
+            ->find($id);
 
-        $author = Manager::getInstance()->getEm()->getReference(Author::class, $values['authorId']);
-
-        if(!$author instanceof Author) {
-            throw new \Exception('Author with id ' . $values['authorId'] . ' not found.');
+        if(!$post instanceof Post) {
+            throw new \Exception('Post with id: ' . $id . ' not found.');
         }
 
-        $post->setAuthor($author);
-        $post->setDate(new \DateTime());
-
-        Manager::getInstance()->getEm()->persist($post);
-        Manager::getInstance()->getEm()->flush();
-
-        return [
+        $result = [
             'id' => ClassHelper::getPropertyValue($post, 'id'),
             'title' => ClassHelper::getPropertyValue($post, 'title'),
             'content' => ClassHelper::getPropertyValue($post, 'content'),
             'date' => ClassHelper::getPropertyValue($post, 'date')->format('Y-m-d'),
-            'author' => ClassHelper::getPropertyValue($post, 'author')
+            'author' => ClassHelper::getPropertyValue($post, 'author'),
+            'comments' => ClassHelper::getPropertyValue($post, 'comments')
         ];
-    }
 
-    public static function getData(array $args)
-    {
-        // TODO: Implement getData() method.
-    }
+        Manager::getInstance()->getEm()->remove($post);
+        Manager::getInstance()->getEm()->flush();
 
+        return $result;
+    }
 }

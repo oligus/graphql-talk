@@ -1,0 +1,10 @@
+{
+    "data": {
+        "deleteComment": {
+            "id": "1",
+            "title": "It works!",
+            "content": "The author is spot on!",
+            "date": "2019-01-24"
+        }
+    }
+}

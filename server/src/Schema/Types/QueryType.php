@@ -5,7 +5,7 @@ namespace Server\Schema\Types;
 use Server\Schema\Fields;
 use GraphQL\Type\Definition\ObjectType;
 
-/**
+/**ç
  * Class QueryType
  * @package Server\Schema\Types
  */

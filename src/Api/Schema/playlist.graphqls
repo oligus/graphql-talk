@@ -1,0 +1,13 @@
+
+extend type PlayList implements Node {
+    id: ID!
+    name: String
+    tracks: [Track]
+}
+
+extend type Query {
+    playList(id: ID!): PlayList
+    playLists(first: Int, after: Int): [PlayList]
+}
+
+

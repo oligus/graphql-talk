@@ -1,0 +1,18 @@
+
+extend type Track implements Node {
+    id: ID!
+    name: String
+    album: Album
+    mediaType: MediaType
+    genre: Genre
+    composer: String
+    milliseconds: Int!
+    bytes: Int
+    unitPrice: String
+}
+
+extend type Query {
+    track(id: ID!): Track
+    tracks(first: Int, after: Int): [Track]
+}
+

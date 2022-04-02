@@ -1,0 +1,25 @@
+{
+    "name": "oligus/graphql-talk",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Oligus\\GraphqlTalk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "oligus",
+            "email": "oli.gustafsson@gmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.11",
+        "webonyx/graphql-php": "^14.11",
+        "doctrine/dbal": "^3.3",
+        "symfony/cache": "^6.0",
+        "doctrine/annotations": "^1.13"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.0"
+    }
+}

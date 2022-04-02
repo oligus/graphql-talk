@@ -1,0 +1,17 @@
+
+extend type Genre implements Node {
+    id: ID!
+    name: String
+}
+
+extend type Query {
+    genre(id: ID!): Genre
+    genres(first: Int, after: Int): [Genre]
+}
+
+extend type Mutation {
+    createGenre(name: String!): Genre
+    updateGenre(id: ID!, name: String!): Genre
+    removeGenre(id: ID!): Genre
+}
+

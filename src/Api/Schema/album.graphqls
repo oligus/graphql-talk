@@ -1,0 +1,13 @@
+
+extend type Album implements Node {
+    id: ID!
+    title: String
+    artist: Artist
+}
+
+extend type Query {
+    album(id: ID!): Album
+    albums(first: Int, after: Int): [Album]
+}
+
+

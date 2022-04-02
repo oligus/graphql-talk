@@ -5,7 +5,9 @@ namespace Oligus\GraphqlTalk\Api\Nodes;
 use Doctrine\DBAL\Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Oligus\GraphqlTalk\Api\AppContext;
+use Oligus\GraphqlTalk\Api\Lists\InvoiceLines;
 use Oligus\GraphqlTalk\Modules\Invoice as InvoiceEntity;
+use Oligus\GraphqlTalk\Modules\InvoiceLine as InvoiceLineEntity;
 
 class Invoice extends Node
 {
@@ -40,7 +42,11 @@ class Invoice extends Node
             'billingCountry' => $invoice->billingCountry,
             'billingPostalCode' => $invoice->billingPostalCode,
             'total' => $invoice->total,
-            // 'invoiceLines' => $invoice->invoiceLines,
+            'invoiceLines' => function() use ($invoice) {
+                return !empty($invoice->invoiceLines)
+                    ? InvoiceLines::resolveFields($invoice->invoiceLines, InvoiceLineEntity::class, InvoiceLine::class)
+                    : null;
+            },
         ];
     }
 }

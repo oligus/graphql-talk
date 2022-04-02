@@ -18,7 +18,7 @@ class CreateGenre
     public static function resolve(array $rootValue, array $args, AppContext $context, ResolveInfo $resolveInfo): array
     {
         $genre = new GenreEntity();
-        $genre->setName($args['name']);
+        $genre->name = $args['name'];
 
         $context->getEm()->persist($genre);
         $context->getEm()->flush();

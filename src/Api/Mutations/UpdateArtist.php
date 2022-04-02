@@ -26,7 +26,7 @@ class UpdateArtist
             throw new Exception('Artist not found.');
         }
 
-        $artist->setName($args['name']);
+        $artist->name = $args['name'];
         $context->getEm()->flush();
 
         return Artist::resolveFields($artist);

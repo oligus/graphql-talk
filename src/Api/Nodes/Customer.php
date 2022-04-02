@@ -18,7 +18,7 @@ class Customer extends Node
         $customer = $context->getEm()->getRepository(CustomerEntity::class)->find($args['id']);
 
         if (!$customer) {
-            throw new Exception('Artist not found.');
+            throw new Exception('Customer not found.');
         }
 
         return self::resolveFields($customer);

@@ -26,7 +26,7 @@ class UpdateGenre
             throw new Exception('Artist not found.');
         }
 
-        $genre->setName($args['name']);
+        $genre->name = $args['name'];
         $context->getEm()->flush();
 
         return Genre::resolveFields($genre);

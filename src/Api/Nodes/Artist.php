@@ -18,7 +18,7 @@ class Artist
         $artist = $context->getEm()->getRepository(ArtistEntity::class)->find($args['id']);
 
         if (empty($artist)) {
-            throw new Exception('Album not found.');
+            throw new Exception('Artist not found.');
         }
 
         return self::resolveFields($artist);

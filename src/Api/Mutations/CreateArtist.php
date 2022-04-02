@@ -18,7 +18,7 @@ class CreateArtist
     public static function resolve(array $rootValue, array $args, AppContext $context, ResolveInfo $resolveInfo): array
     {
         $artist = new ArtistEntity();
-        $artist->setName($args['name']);
+        $artist->name = $args['name'];
 
         $context->getEm()->persist($artist);
         $context->getEm()->flush();

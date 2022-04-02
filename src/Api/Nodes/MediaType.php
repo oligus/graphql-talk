@@ -2,6 +2,7 @@
 
 namespace Oligus\GraphqlTalk\Api\Nodes;
 
+use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Oligus\GraphqlTalk\Api\AppContext;
 use Oligus\GraphqlTalk\Modules\MediaType as MediaTypeEntity;
@@ -12,6 +13,10 @@ class MediaType extends Node
     {
         /** @var MediaTypeEntity $mediaType */
         $mediaType = $context->getEm()->getRepository(MediaTypeEntity::class)->find($args['id']);
+
+        if (empty($invoiceLine)) {
+            throw new Exception('Media type not found.');
+        }
 
         return self::resolveFields($mediaType);
     }

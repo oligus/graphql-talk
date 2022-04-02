@@ -8,15 +8,5 @@ use Doctrine\ORM\NonUniqueResultException;
 
 class Node
 {
-    /**
-     * @throws NonUniqueResultException
-     */
-    public static function fetch(string $entityClass, string $id, EntityManager $em): array
-    {
-        $qb = $em->getRepository($entityClass)->createQueryBuilder('t');
-        $qb->where($qb->expr()->eq('t.id', ':id'));
-        $qb->setParameter('id', $id);
-        $result = $qb->getQuery()->getOneOrNullResult(AbstractQuery::HYDRATE_ARRAY);
-        return $result ?: [];
-    }
+
 }

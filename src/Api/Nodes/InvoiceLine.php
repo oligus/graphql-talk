@@ -18,7 +18,7 @@ class InvoiceLine extends Node
         $invoiceLine = $context->getEm()->getRepository(InvoiceLineEntity::class)->find($args['id']);
 
         if (empty($invoiceLine)) {
-            throw new Exception('Album not found.');
+            throw new Exception('Invoice line not found.');
         }
 
         return self::resolveFields($invoiceLine);

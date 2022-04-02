@@ -27,19 +27,23 @@ class Customer extends Node
     public static function resolveFields(CustomerEntity $customer): array
     {
         return [
-            'id' => $customer->getId(),
-            'lastName' => $customer->getLastName(),
-            'firstName' => $customer->getFirstName(),
-            'company' => $customer->getCompany(),
-            'address' => $customer->getAddress(),
-            'city' => $customer->getCity(),
-            'state' => $customer->getState(),
-            'country' => $customer->getCountry(),
-            'postalCode' => $customer->getPostalCode(),
-            'phone' => $customer->getPhone(),
-            'fax' => $customer->getFax(),
-            'email' => $customer->getEmail(),
-            // 'supportRep' => $customer->getSupportRep(),
+            'id' => $customer->id,
+            'lastName' => $customer->lastName,
+            'firstName' => $customer->firstName,
+            'company' => $customer->company,
+            'address' => $customer->address,
+            'city' => $customer->city,
+            'state' => $customer->state,
+            'country' => $customer->country,
+            'postalCode' => $customer->postalCode,
+            'phone' => $customer->phone,
+            'fax' => $customer->fax,
+            'email' => $customer->email,
+            'supportRep' => function() use ($customer) {
+                return !empty($customer->supportRep)
+                    ? Employee::resolveFields($customer->supportRep)
+                    : null;
+            }
         ];
     }
 }

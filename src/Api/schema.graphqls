@@ -1,27 +1,8 @@
 
+scalar Date
+
 interface Node {
     id: ID!
-}
-
-type Invoice implements Node {
-    id: ID!
-    customer: Customer
-    invoiceDate: String
-    billingAddress: String
-    billingCity: String
-    billingState: String
-    billingCountry: String
-    billingPostalCode: String
-    total: Float
-    invoiceLines: [InvoiceLine]
-}
-
-type InvoiceLine implements Node {
-    id: ID!
-    invoice: Invoice!
-    track: Track!
-    unitPrice: Float!
-    quantity: Int!
 }
 
 type Album
@@ -32,6 +13,8 @@ type Track
 type MediaType
 type PlayList
 type Employee
+type Invoice
+type InvoiceLine
 
 type Query
 type Mutation

@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Stimplify\Api\Common\Scalars;
+namespace Oligus\GraphqlTalk\Api\Custom\Scalars;
 
 use DateTime;
+use Exception;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\Node;
@@ -28,6 +29,9 @@ class DateType extends ScalarType
         return $value->format(self::DATE_FORMAT);
     }
 
+    /**
+     * @throws Exception
+     */
     public function parseValue($value): DateTime
     {
         if (!$this->isValidDateString($value)) {

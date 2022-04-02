@@ -17,5 +17,6 @@ extend type Customer implements Node {
 
 extend type Query {
     customer(id: ID!): Customer
+    customers(first: Int, after: Int): [Customer]
 }
 

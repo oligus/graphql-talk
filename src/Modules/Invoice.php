@@ -67,5 +67,5 @@ class Invoice
     /**
      * @ORM\OneToMany(targetEntity="InvoiceLine", mappedBy="invoice")
      */
-    protected Collection $invoiceLines;
+    public Collection $invoiceLines;
 }

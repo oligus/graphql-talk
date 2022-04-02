@@ -17,6 +17,7 @@ use GraphQL\Server\StandardServer;
 use GraphQL\Utils\BuildSchema;
 use GraphQL\Utils\SchemaExtender;
 use Oligus\GraphqlTalk\Api\AppContext;
+use Oligus\GraphqlTalk\Api\Custom\TypeConfigDecorator;
 use Oligus\GraphqlTalk\Api\RootResolver;
 
 $paths = [realpath(__DIR__ . '/../src/Modules')];
@@ -31,7 +32,7 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/../src"),
 $em = EntityManager::create($conn, $config);
 
 $schemaFile = file_get_contents(SRC_PATH . '/Api/schema.graphqls');
-$schema = BuildSchema::build($schemaFile);
+$schema = BuildSchema::build($schemaFile, TypeConfigDecorator::resolve());
 
 $extendedSchemasDirectory = SRC_PATH . '/Api/Schema/';
 

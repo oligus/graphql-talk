@@ -25,13 +25,15 @@ class RootResolver
             'playLists' => self::getResolver(Lists\PlayLists::class),
             'employee' => self::getResolver(Nodes\Employee::class),
             'employees' => self::getResolver(Lists\Employees::class),
-
-
             'customer' => self::getResolver(Nodes\Customer::class),
-
-
-            'invoice' => self::getResolver(Nodes\Invoice::class),
+            'customers' => self::getResolver(Lists\Customers::class),
             'invoiceLine' => self::getResolver(Nodes\InvoiceLine::class),
+            'invoiceLines' => self::getResolver(Lists\InvoiceLines::class),
+            'invoice' => self::getResolver(Nodes\Invoice::class),
+            'invoices' => self::getResolver(Lists\Invoices::class),
+
+
+
 
 
             'createArtist' => self::getResolver(Mutations\CreateArtist::class),

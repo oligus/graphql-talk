@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Stimplify\Api\Common\Scalars;
+namespace Oligus\GraphqlTalk\Api\Custom\Scalars;
 
 use Exception;
 use GraphQL\Error\Error;

@@ -1,0 +1,15 @@
+
+extend type InvoiceLine implements Node {
+    id: ID!
+    invoice: Invoice!
+    track: Track!
+    unitPrice: Float!
+    quantity: Int!
+}
+
+extend type Query {
+    invoiceLine(id: ID!): InvoiceLine
+    invoiceLines(first: Int, after: Int): [InvoiceLine]
+}
+
+

@@ -32,10 +32,6 @@ class RootResolver
             'invoice' => self::getResolver(Nodes\Invoice::class),
             'invoices' => self::getResolver(Lists\Invoices::class),
 
-
-
-
-
             'createArtist' => self::getResolver(Mutations\CreateArtist::class),
             'updateArtist' => self::getResolver(Mutations\UpdateArtist::class),
             'removeArtist' => self::getResolver(Mutations\RemoveArtist::class),

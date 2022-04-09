@@ -27,7 +27,7 @@ class Track
     public string $name;
 
     /**
-     * @ORM\OneToOne(targetEntity="Album")
+     * @ORM\ManyToOne(targetEntity="Album")
      * @ORM\JoinColumn(name="AlbumId", referencedColumnName="AlbumId")
      */
     public Album $album;

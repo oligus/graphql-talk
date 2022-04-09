@@ -2,6 +2,7 @@
 extend type Artist implements Node {
     id: ID!
     name: String
+    albums: [Album]
 }
 
 extend type Query {

@@ -2,6 +2,7 @@
 
 namespace Oligus\GraphqlTalk\Modules;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,4 +22,9 @@ class Artist
      * @ORM\Column(name="Name", type="string", length=120, nullable=true)
      */
     public ?string $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Album", mappedBy="artist")
+     */
+    public Collection $albums;
 }

@@ -5,7 +5,9 @@ namespace Oligus\GraphqlTalk\Api\Nodes;
 use Doctrine\DBAL\Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Oligus\GraphqlTalk\Api\AppContext;
+use Oligus\GraphqlTalk\Api\Lists\Tracks;
 use Oligus\GraphqlTalk\Modules\Album as AlbumEntity;
+use Oligus\GraphqlTalk\Modules\Track as TrackEntity;
 
 class Album extends Node
 {
@@ -34,7 +36,12 @@ class Album extends Node
                 return !empty($album->artist)
                     ? Artist::resolveFields($album->artist)
                     : null;
-            }
+            },
+            'tracks' => function() use ($album) {
+                return !empty($album->tracks)
+                    ? Tracks::resolveFields($album->tracks, TrackEntity::class, Track::class)
+                    : [];
+            },
         ];
     }
 }

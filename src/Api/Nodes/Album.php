@@ -2,6 +2,8 @@
 
 namespace Oligus\GraphqlTalk\Api\Nodes;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Oligus\GraphqlTalk\Api\AppContext;
@@ -37,10 +39,12 @@ class Album extends Node
                     ? Artist::resolveFields($album->artist)
                     : null;
             },
-            'tracks' => function() use ($album) {
-                return !empty($album->tracks)
-                    ? Tracks::resolveFields($album->tracks, TrackEntity::class, Track::class)
-                    : [];
+            'tracks' => function(array $rootValue, array $args) use ($album) {
+                $criteria = new Criteria();
+                $criteria->setMaxResults($args['first'] ?? null);
+                $criteria->setFirstResult($args['after'] ?? null);
+                $tracks = $album->tracks->matching($criteria);
+                return Tracks::resolveFields($tracks, TrackEntity::class, Track::class);
             },
         ];
     }

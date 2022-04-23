@@ -2,7 +2,7 @@
 extend type Artist implements Node {
     id: ID!
     name: String
-    albums: [Album]
+    albums(first: Int, after: Int): [Album]
 }
 
 extend type Query {

@@ -2,6 +2,7 @@
 
 namespace Oligus\GraphqlTalk\Api\Nodes;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Oligus\GraphqlTalk\Api\AppContext;
@@ -31,10 +32,12 @@ class Artist
         return [
             'id' => $artist->id,
             'name' => $artist->name,
-            'albums' => function() use ($artist) {
-                return !empty($artist->albums)
-                    ? Albums::resolveFields($artist->albums, AlbumEntity::class, Album::class)
-                    : [];
+            'albums' => function(array $rootValue, array $args) use ($artist) {
+                $criteria = new Criteria();
+                $criteria->setMaxResults($args['first'] ?? null);
+                $criteria->setFirstResult($args['after'] ?? null);
+                $albums = $artist->albums->matching($criteria);
+                return Albums::resolveFields($albums, AlbumEntity::class, Album::class);
             },
         ];
     }

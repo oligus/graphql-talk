@@ -35,6 +35,9 @@ class RootResolver
             'createArtist' => self::getResolver(Mutations\CreateArtist::class),
             'updateArtist' => self::getResolver(Mutations\UpdateArtist::class),
             'removeArtist' => self::getResolver(Mutations\RemoveArtist::class),
+            'createGenre' => self::getResolver(Mutations\CreateGenre::class),
+            'updateGenre' => self::getResolver(Mutations\UpdateGenre::class),
+            'removeGenre' => self::getResolver(Mutations\RemoveGenre::class),
         ];
     }
 

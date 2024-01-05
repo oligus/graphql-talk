@@ -5,6 +5,7 @@ namespace Oligus\GraphqlTalk\Api\Nodes;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Exception;
+use Doctrine\ORM\Exception\NotSupported;
 use GraphQL\Type\Definition\ResolveInfo;
 use Oligus\GraphqlTalk\Api\AppContext;
 use Oligus\GraphqlTalk\Api\Lists\Tracks;
@@ -15,6 +16,7 @@ class Album extends Node
 {
     /**
      * @throws Exception
+     * @throws NotSupported
      */
     public static function resolve(array $rootValue, array $args, AppContext $context, ResolveInfo $resolveInfo): array
     {

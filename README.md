@@ -1,9 +1,16 @@
-# graphql-talk
-GraphQL talk
+# GraphQL talk
 
-php -S localhost:8888 ./public/index.php
+GraphQL talk and workshop files
 
-# Todo
+## Install
+
+#### Build container
+```bash
+$ make build
+$ make php-server
+```
+
+### Todo
 
 * Create dummy data
 * Fix mutations

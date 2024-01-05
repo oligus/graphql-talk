@@ -17,8 +17,8 @@ class DateType extends ScalarType
 
     const DATE_FORMAT = 'Y-m-d';
 
-    public $name = 'Date';
-    public $description = 'The `Date` scalar type represents date in format "YYYY-mm-dd"';
+    public string $name = 'Date';
+    public ?string $description = 'The `Date` scalar type represents date in format "YYYY-mm-dd"';
 
     public function serialize($value): string
     {
@@ -41,6 +41,10 @@ class DateType extends ScalarType
         return new DateTime($value);
     }
 
+    /**
+     * @throws Error
+     * @throws Exception
+     */
     public function parseLiteral(Node $valueNode, ?array $variables = null): DateTime
     {
         if (!$valueNode instanceof StringValueNode) {
@@ -59,7 +63,7 @@ class DateType extends ScalarType
 
     private static function isValidDateString(string $date): bool
     {
-        $result = preg_split('/-/', $date);
+        $result = explode('-', $date);
 
         if (count($result) !== 3) {
             return false;

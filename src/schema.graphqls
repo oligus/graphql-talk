@@ -1,0 +1,76 @@
+
+scalar Date
+
+interface Node {
+    id: ID!
+}
+
+type Album implements Node {
+    id: ID!
+    title: String
+    artist: Artist
+    tracks(first: Int, after: Int): [Track]
+}
+
+type Artist implements Node {
+    id: ID!
+    name: String
+    albums(first: Int, after: Int): [Album]
+}
+
+type Genre implements Node {
+    id: ID!
+    name: String
+}
+
+type MediaType implements Node {
+    id: ID!
+    name: String
+}
+
+type PlayList implements Node {
+    id: ID!
+    name: String
+    tracks(first: Int, after: Int): [Track]
+}
+
+type Track implements Node {
+    id: ID!
+    name: String
+    album: Album
+    mediaType: MediaType
+    genre: Genre
+    composer: String
+    milliseconds: Int!
+    bytes: Int
+    unitPrice: String
+}
+
+type Query {
+    album(id: ID!): Album
+    albums(first: Int, after: Int): [Album]
+    artist(id: ID!): Artist
+    artists(first: Int, after: Int): [Artist]
+    genre(id: ID!): Genre
+    genres(first: Int, after: Int): [Genre]
+    mediaType(id: ID!): MediaType
+    mediaTypes(first: Int, after: Int): [MediaType]
+    playList(id: ID!): PlayList
+    playLists(first: Int, after: Int): [PlayList]
+    track(id: ID!): Track
+    tracks(first: Int, after: Int): [Track]
+}
+
+type Mutation {
+    createArtist(name: String!): Artist
+    updateArtist(id: ID!, name: String!): Artist
+    removeArtist(id: ID!): Artist
+    createGenre(name: String!): Genre
+    updateGenre(id: ID!, name: String!): Genre
+    removeGenre(id: ID!): Genre
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}

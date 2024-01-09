@@ -16,9 +16,8 @@
         "symfony/var-dumper": "^7.0"
     },
     "require": {
-        "doctrine/orm": "^2.17",
+        "ext-json": "*",
         "webonyx/graphql-php": "^15.8",
-        "symfony/cache": "^7.0",
-        "doctrine/annotations": "^2.0"
+        "jajo/jsondb": "^3.0"
     }
 }
